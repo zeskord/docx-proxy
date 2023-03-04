@@ -16,8 +16,7 @@ app.use(express.urlencoded({ limit: '100mb', extended: true, parameterLimit: 500
 
 app.post('/test', function (req, res, next) {
 
-    console.log(req.files)
-    jsonfile = req.files[0].filename
+    
 
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
@@ -25,6 +24,10 @@ app.post('/test', function (req, res, next) {
         } else {
             console.log("При загрузке произошла неизвестная ошибка.")
         }
+
+        // Если мы здесь без ошибок, то файл загружен.
+        console.log(req.files)
+        jsonfile = req.files[0].filename
 
         const command = `python3 "main_script.py" "templates/template.docx" ${jsonfile} "temp/result.docx"`
         console.log(command)
