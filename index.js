@@ -29,13 +29,13 @@ app.post('/test', function (req, res, next) {
         console.log(req.files)
         jsonfile = req.files[0].filename
 
-        const command = `python3 "main_script.py" "templates/template.docx" ${jsonfile} "temp/result.docx"`
+        const command = `python3 "main_script.py" "templates/template.docx" "temp/${jsonfile}" "temp/result.docx"`
         console.log(command)
         exec(command, (err, stdout, stderr) => {
             if (err) {
-                console.error(err);
-                console.error(stderr);
-                return;
+                console.error(err)
+                console.error(stderr)
+                return
             }
             console.log(stdout)
         })
