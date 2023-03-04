@@ -21,8 +21,11 @@ app.post('/test', function (req, res, next) {
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             console.log("Случилась ошибка Multer при загрузке.")
+            console.error(err)
+            return
         } else {
             console.log("При загрузке произошла неизвестная ошибка.")
+            console.error(err)
         }
 
         // Если мы здесь без ошибок, то файл загружен.
