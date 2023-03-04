@@ -28,9 +28,10 @@ app.post('/create_task', function (req, res, next) {
 
         // Если мы здесь без ошибок, то файл загружен.
         console.log(req.files)
-        jsonfile = req.files[0].filename
+        jsonFile = req.files[0].filename
+        resultFile = `${jsonFile}.docx`
 
-        const command = `python3 "main_script.py" "templates/template.docx" "temp/${jsonfile}" "temp/${jsonfile}.docx"`
+        const command = `python3 "main_script.py" "templates/template.docx" "temp/${jsonFile}" "temp/${resultFile}"`
         console.log(command)
         exec(command, (err, stdout, stderr) => {
             if (err) {
@@ -39,7 +40,14 @@ app.post('/create_task', function (req, res, next) {
                 return
             }
             console.log(stdout)
-            res.json({status : "OK"})
+            const file_buffer = fs.readFileSync(`temp/${resultFile}`);
+            const contents_in_base64 = file_buffer.toString('base64');
+            res.json(
+                {
+                    status: "OK",
+                    filedata: contents_in_base64
+                }
+            )
         })
 
     })
