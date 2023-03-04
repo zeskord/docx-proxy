@@ -14,9 +14,7 @@ app.use(express.static("public"))
 app.use(express.json({ limit: '100mb', extended: true, parameterLimit: 5000000 }))
 app.use(express.urlencoded({ limit: '100mb', extended: true, parameterLimit: 5000000 }))
 
-app.post('/test', function (req, res, next) {
-
-    
+app.post('/create_task', function (req, res, next) {
 
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
@@ -32,7 +30,7 @@ app.post('/test', function (req, res, next) {
         console.log(req.files)
         jsonfile = req.files[0].filename
 
-        const command = `python3 "main_script.py" "templates/template.docx" "temp/${jsonfile}" "temp/result.docx"`
+        const command = `python3 "main_script.py" "templates/template.docx" "temp/${jsonfile}" "temp/${jsonfile}.docx"`
         console.log(command)
         exec(command, (err, stdout, stderr) => {
             if (err) {
