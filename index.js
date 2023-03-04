@@ -6,7 +6,7 @@ const app = express()
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
 // const { spawn } = require('child_process');
-const { exec, spawn } = require('node:child_process');
+const { exec, spawn } = require('child_process');
 
 app.set('json spaces', 2)
 app.use(express.json())
