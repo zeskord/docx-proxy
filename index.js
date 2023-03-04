@@ -39,13 +39,14 @@ app.post('/create_task', function (req, res, next) {
                 return
             }
             console.log(stdout)
+            res.json({status : "OK"})
         })
 
     })
 
 
     // ans = { status: "OK" }
-    // res.json(ans)
+    // 
 })
 
 app.post('/main', (req, res) => {
