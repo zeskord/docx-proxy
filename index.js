@@ -4,7 +4,7 @@ const fs = require("fs")
 const http = require('http')
 const app = express()
 const multer = require('multer')
-const upload = multer({ dest: 'temp/' })
+const upload = multer({ dest: 'temp/' }).any()
 // const { spawn } = require('child_process');
 const { exec, spawn } = require('child_process');
 
@@ -14,7 +14,7 @@ app.use(express.static("public"))
 app.use(express.json({ limit: '100mb', extended: true, parameterLimit: 5000000 }))
 app.use(express.urlencoded({ limit: '100mb', extended: true, parameterLimit: 5000000 }))
 
-app.post('/test', upload.any(), function (req, res, next) {
+app.post('/test', function (req, res, next) {
 
     console.log(req.files)
     jsonfile = req.files[0].filename
