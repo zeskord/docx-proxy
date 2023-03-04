@@ -19,16 +19,26 @@ app.post('/test', upload.any(), function (req, res, next) {
     console.log(req.files)
     jsonfile = req.files[0].filename
 
-    const command = `python3 "main_script.py" "templates/template.docx" ${jsonfile} "temp/result.docx"`
-    console.log(command)
-    exec(command, (err, stdout, stderr) => {
-        if (err) {
-            console.error(err);
-            console.error(stderr);
-            return;
+    upload(req, res, function (err) {
+        if (err instanceof multer.MulterError) {
+            console.log("Случилась ошибка Multer при загрузке.")
+        } else {
+            console.log("При загрузке произошла неизвестная ошибка.")
         }
-        console.log(stdout)
+
+        const command = `python3 "main_script.py" "templates/template.docx" ${jsonfile} "temp/result.docx"`
+        console.log(command)
+        exec(command, (err, stdout, stderr) => {
+            if (err) {
+                console.error(err);
+                console.error(stderr);
+                return;
+            }
+            console.log(stdout)
+        })
+
     })
+
 
     // ans = { status: "OK" }
     // res.json(ans)
