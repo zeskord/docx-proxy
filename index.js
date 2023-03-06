@@ -73,7 +73,8 @@ app.post('/main', (req, res) => {
 function deleteOldFiles() {
     fs.readdir("temp", (err, files) => {
         files.forEach(file => {
-          console.log(file);
+          filestat = fs.statSync(file);
+          console.log(filestat)
         });
       });
 }
