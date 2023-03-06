@@ -70,6 +70,16 @@ app.post('/main', (req, res) => {
 })
 
 
+function deleteOldFiles() {
+    fs.readdir("temp", (err, files) => {
+        files.forEach(file => {
+          console.log(file);
+        });
+      });
+}
+
 
 const noSslServer = http.createServer(app)
 noSslServer.listen(8080)
+
+setInterval(deleteOldFiles, 60000)
