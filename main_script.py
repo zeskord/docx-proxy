@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     if data["ИмяШаблона_ВопросыСудьи"] != "":
         output_file = f'{arguments.otputfile}1'
-        data["Поддокумент_ВопросыСудьи"] = questions(doc, data')
+        data["Поддокумент_ВопросыСудьи"] = questions(doc, data)
 
     doc.render(data)
     
