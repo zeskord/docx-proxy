@@ -9,7 +9,8 @@ from docx.enum.text import WD_PARAGRAPH_ALIGNMENT, WD_TAB_ALIGNMENT, WD_LINE_SPA
 from docx.enum.style import WD_STYLE_TYPE
 from docx.oxml import OxmlElement, ns
 from docx.shared import Cm, Pt
-from my_subdoc import my_subdoc
+# from my_subdoc import my_subdoc
+from questions import questions
 
 # Инициализация входных параметров.
 def createParser():
@@ -40,7 +41,7 @@ if __name__ == '__main__':
 
     if data["ИмяШаблона_ВопросыСудьи"] != "":
         output_file = f'{arguments.otputfile}1'
-        data["Поддокумент_ВопросыСудьи"] = my_subdoc(doc, f'templates/{data["ИмяШаблона_ВопросыСудьи"]}', data, output_file)
+        data["Поддокумент_ВопросыСудьи"] = questions(doc, f'templates/{data["ИмяШаблона_ВопросыСудьи"]}')
 
     doc.render(data)
     
