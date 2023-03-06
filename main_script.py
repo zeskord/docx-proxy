@@ -38,7 +38,7 @@ if __name__ == '__main__':
     data = json.load(open(arguments.data, encoding='utf-8-sig'))
 
     if data["ИмяШаблона_ВопросыСудьи"] != "":
-        data["Поддокумент_ВопросыСудьи"] = new_subdoc(data, f'templates/{data["ИмяШаблона_ВопросыСудьи"]}')
+        data["Поддокумент_ВопросыСудьи"] = doc.new_subdoc(data, f'templates/{data["ИмяШаблона_ВопросыСудьи"]}')
 
     doc.render(data)
     
