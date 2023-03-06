@@ -77,7 +77,10 @@ function deleteOldFiles() {
             filestat = fs.statSync(filepath);
             timelong = new Date() - filestat.birthtime
             if (timelong > 3600000) {
-                fs.unlink(filepath)
+                fs.unlink(filepath, (err) => {
+                    if (err) throw err;
+                    console.log(`${filepath} was deleted`);
+                })
             }
         });
     });
