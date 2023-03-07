@@ -32,7 +32,7 @@ def app3_subdoc(data, doc):
             file_extension = file_entry["Расширение"]
             file_base64 = file_entry["ДанныеФайла"]
             image = base64.b64decode(file_base64)
-            filename = f'workdir/{file_guid}.{file_extension}'
+            filename = f'temp/{file_guid}.{file_extension}'
             with open(filename, "wb") as file:
                 file.write(image)
 
@@ -66,7 +66,4 @@ def app3_subdoc(data, doc):
         
         par = sd.add_paragraph(f'Рисунок {picture_group_counter}: {picture_group["ОписаниеРисунка"]}')
         par.alignment = WD_ALIGN_PARAGRAPH.CENTER
-
-
-    sd.add_paragraph("Конец!!!")
     return sd
