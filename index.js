@@ -31,7 +31,7 @@ app.post('/create_task', function (req, res, next) {
         jsonFile = req.files[0].filename
         resultFile = `${jsonFile}.docx`
 
-        const command = `python3 "main_script.py" "templates/template.docx" "temp/${jsonFile}" "temp/${resultFile}"`
+        const command = `python3 "main_script.py" "templates/Шаблон экспертизы.docx" "temp/${jsonFile}" "temp/${resultFile}"`
         console.log(command)
         exec(command, (err, stdout, stderr) => {
             if (err) {
