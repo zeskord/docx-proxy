@@ -11,6 +11,7 @@ from docx.oxml import OxmlElement, ns
 from docx.shared import Cm, Pt
 from app3_subdoc import app3_subdoc
 from questions import questions
+from question import question
 
 # Инициализация входных параметров.
 def createParser():
@@ -28,16 +29,20 @@ if __name__ == '__main__':
     arguments = parser.parse_args(sys.argv[1:])
 
     # Чтение документа-исходника.
-    # doc = docx.Document(arguments.inputfile)
     doc = DocxTemplate(arguments.inputfile)
 
     # Чтение входящих параметров.
-    # data = json.load(open(arguments.data, encoding='utf-8'))
     data = json.load(open(arguments.data, encoding='utf-8-sig'))
 
     if data["ИмяШаблона_ВопросыСудьи"] != "":
-        output_file = f'{arguments.otputfile}1'
+        output_file = f'{arguments.otputfile}_вопросы'
         data["Поддокумент_ВопросыСудьи"] = questions(doc, data, output_file)
+
+        counter = 0
+        for question_row_data in data["ВопросыСудьи"]:
+            counter = counter + 1
+            output_file = f'{arguments.otputfile}_вопрос{counter}'
+            data[f'Вопрос{counter}'] = question(doc, data, output_file, question_row_data)
 
     data["ПриложениеВ"] = app3_subdoc(data, doc)
 
