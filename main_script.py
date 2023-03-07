@@ -38,11 +38,11 @@ if __name__ == '__main__':
         output_file = f'{arguments.otputfile}_вопросы'
         data["Поддокумент_ВопросыСудьи"] = questions(doc, data, output_file)
 
-        counter = 0
+        data["Вопросы"] = []
         for question_row_data in data["ВопросыСудьи"]:
-            counter = counter + 1
-            output_file = f'{arguments.otputfile}_вопрос{counter}'
-            data[f'Вопрос{counter}'] = question(doc, data, output_file, question_row_data)
+            output_file = f'{arguments.otputfile}_вопрос{len(data["Вопросы"])}'
+            # data[f'Вопрос{counter}'] = question(doc, data, output_file, question_row_data)
+            data["Вопросы"].append(question(doc, data, output_file, question_row_data))
 
     data["ПриложениеВ"] = app3_subdoc(data, doc)
 
