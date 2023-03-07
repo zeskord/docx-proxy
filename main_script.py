@@ -9,7 +9,7 @@ from docx.enum.text import WD_PARAGRAPH_ALIGNMENT, WD_TAB_ALIGNMENT, WD_LINE_SPA
 from docx.enum.style import WD_STYLE_TYPE
 from docx.oxml import OxmlElement, ns
 from docx.shared import Cm, Pt
-# from my_subdoc import my_subdoc
+from app3_subdoc import app3_subdoc
 from questions import questions
 
 # Инициализация входных параметров.
@@ -27,10 +27,6 @@ if __name__ == '__main__':
     parser = createParser()
     arguments = parser.parse_args(sys.argv[1:])
 
-    print(arguments.inputfile)
-    print(arguments.data)
-    print(arguments.otputfile)
-
     # Чтение документа-исходника.
     # doc = docx.Document(arguments.inputfile)
     doc = DocxTemplate(arguments.inputfile)
@@ -42,6 +38,8 @@ if __name__ == '__main__':
     if data["ИмяШаблона_ВопросыСудьи"] != "":
         output_file = f'{arguments.otputfile}1'
         data["Поддокумент_ВопросыСудьи"] = questions(doc, data, output_file)
+
+    data["ПриложениеВ"] = app3_subdoc(data, doc)
 
     doc.render(data)
     
