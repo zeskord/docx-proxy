@@ -9,6 +9,8 @@ from docx.enum.text import WD_PARAGRAPH_ALIGNMENT, WD_TAB_ALIGNMENT, WD_LINE_SPA
 from docx.enum.style import WD_STYLE_TYPE
 from docx.oxml import OxmlElement, ns
 from docx.shared import Cm, Pt
+from app1_subdoc import app1_subdoc
+from app2_subdoc import app2_subdoc
 from app3_subdoc import app3_subdoc
 from app4_subdoc import app4_subdoc
 from questions import questions
@@ -45,6 +47,9 @@ if __name__ == '__main__':
             # data[f'Вопрос{counter}'] = question(doc, data, output_file, question_row_data)
             data["Вопросы"].append(question(doc, data, output_file, question_row_data))
 
+    
+    data["ПриложениеА"] = app1_subdoc(data, doc)
+    data["АктПрисутствияЗаинтересованныхСторон"] = app2_subdoc(data, doc)
     data["ПриложениеВ"] = app3_subdoc(data, doc)
 
     data["ПриложениеГ"] = app4_subdoc(data, doc, arguments.otputfile)
