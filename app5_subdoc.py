@@ -16,7 +16,7 @@ def app5_subdoc(data, doc):
         file.write(image)
 
     par = sd.add_paragraph()
-    par.add_run().add_picture(filename, width=None, height=Mm(200))
+    par.add_run().add_picture(filename, width=Mm(160), height=None)
     par.alignment = WD_ALIGN_PARAGRAPH.CENTER
     
     file_entry["Картинка"] = sd
