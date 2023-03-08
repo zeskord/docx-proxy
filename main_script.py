@@ -13,6 +13,7 @@ from app1_subdoc import app1_subdoc
 from app2_subdoc import app2_subdoc
 from app3_subdoc import app3_subdoc
 from app4_subdoc import app4_subdoc
+from app5_subdoc import app5_subdoc
 from questions import questions
 from question import question
 
@@ -53,7 +54,7 @@ if __name__ == '__main__':
     data["ПриложениеВ"] = app3_subdoc(data, doc)
 
     data["ПриложениеГ"] = app4_subdoc(data, doc, arguments.otputfile)
-
+    data["ОбмерныйПлан"] = app5_subdoc(data, doc)
     doc.render(data)
     
     # Сохраним документ.
