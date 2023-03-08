@@ -3,7 +3,7 @@ from docxtpl import DocxTemplate, InlineImage
 from docx.shared import Inches, Mm, Pt
 
 def app4_subdoc(data, doc):
-    sd = doc.new_subdoc()
+    # sd = doc.new_subdoc()
 
     counter = 0
     for file_entry in data["КартинкиПриложенияГ"]:
@@ -17,5 +17,5 @@ def app4_subdoc(data, doc):
         with open(filename, "wb") as file:
             file.write(image)
         
-        file_entry["Картинка"] = InlineImage(sd, filename, width=Mm(100)),
+        file_entry["Картинка"] = InlineImage(doc, filename, width=Mm(100)),
         
