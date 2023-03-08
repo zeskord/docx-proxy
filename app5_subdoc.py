@@ -4,7 +4,7 @@ from docx.enum.table import WD_ALIGN_VERTICAL
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 
-def app2_subdoc(data, doc):
+def app5_subdoc(data, doc):
     sd = doc.new_subdoc()
     file_entry = data["ОбмерныйПлан"]
     file_guid = ["ИмяФайла"]
