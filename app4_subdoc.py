@@ -19,7 +19,7 @@ def app4_subdoc(data, doc, output_file):
             file.write(image)
 
         sd = subdoc_template.new_subdoc()
-        sd.paragraphs[0].add_run().add_picture(filename, width=Mm(75), height=None)
+        sd.add_paragraph().add_run().add_picture(filename, width=Mm(75), height=None)
         
         # file_entry["Картинка"] = InlineImage(subdoc_template, filename, width=Mm(100)),
         # element_data = {}
