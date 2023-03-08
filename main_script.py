@@ -10,6 +10,7 @@ from docx.enum.style import WD_STYLE_TYPE
 from docx.oxml import OxmlElement, ns
 from docx.shared import Cm, Pt
 from app3_subdoc import app3_subdoc
+from app4_subdoc import app4_subdoc
 from questions import questions
 from question import question
 
@@ -45,6 +46,8 @@ if __name__ == '__main__':
             data["Вопросы"].append(question(doc, data, output_file, question_row_data))
 
     data["ПриложениеВ"] = app3_subdoc(data, doc)
+
+    app4_subdoc(data, doc)
 
     doc.render(data)
     
