@@ -48,7 +48,7 @@ if __name__ == '__main__':
             data["Вопросы"].append(question(doc, data, output_file, question_row_data))
 
     
-    data["ПриложениеА"] = app1_subdoc(data, doc)
+    data["ПриложениеА"] = app1_subdoc(data, doc, arguments.otputfile)
     data["АктПрисутствияЗаинтересованныхСторон"] = app2_subdoc(data, doc)
     data["ПриложениеВ"] = app3_subdoc(data, doc)
 
