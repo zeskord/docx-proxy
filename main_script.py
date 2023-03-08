@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     data["ПриложениеВ"] = app3_subdoc(data, doc)
 
-    app4_subdoc(data, doc)
+    data["ПриложениеГ"] = app4_subdoc(data, doc, arguments.otputfile)
 
     doc.render(data)
     
