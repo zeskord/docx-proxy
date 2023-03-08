@@ -19,6 +19,7 @@ def app4_subdoc(data, doc, output_file):
         file_entry["Картинка"] = InlineImage(doc, filename, width=Mm(100)),
         
         subdoc_template.render(data, autoescape=True)
-        subdoc_template.save(f'{output_file}_приложениеГ_{counter}.docx')
-        final = doc.new_subdoc(output_file)
+        temp_ourput_file = f'{output_file}_приложениеГ_{counter}.docx'
+        subdoc_template.save(temp_ourput_file)
+        final = doc.new_subdoc(temp_ourput_file)
         return final
