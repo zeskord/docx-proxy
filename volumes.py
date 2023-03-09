@@ -12,7 +12,7 @@ def volumes(data, doc):
 
 def generate_table(data, doc):
 
-    table = doc.add_table()
+    table = doc.add_table(rows=0, cols=0)
     table.style = "Table Grid"
     table.add_column(Mm(15))
     table.add_column(Mm(110))
