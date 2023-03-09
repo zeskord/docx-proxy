@@ -25,7 +25,7 @@ def generate_table(data, doc):
     row_header.cells[2].paragraphs[0].add_run("Ед.изм.")
     row_header.cells[3].paragraphs[0].add_run("Кол.")
 
-    for item in data["volumes"]:
+    for item in data["ВедомостьВидовИОбъемовРабот"]:
         # subdoc = doc.new_subdoc()
         row = table.add_row()
         run = row.cells[0].paragraphs[0].add_run(item["Номер"])
