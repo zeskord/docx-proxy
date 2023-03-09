@@ -13,6 +13,7 @@ def volumes(data, doc):
 def generate_table(data, doc):
 
     table = doc.add_table(rows=0, cols=4)
+    table.style = "Table Grid"
     table.columns[0].width = Mm(15)
     table.columns[1].width = Mm(110)
     table.columns[2].width = Mm(20)
@@ -36,12 +37,11 @@ def generate_table(data, doc):
             row.cells[1].paragraphs[0].add_run(item["Наименование"])
             row.cells[2].paragraphs[0].add_run(item["ЕдИзм"])
             row.cells[3].paragraphs[0].add_run(item["Количество"])
-        
     return doc
-    # doc.save("temp/volumes.docx")    
 
 if __name__ == '__main__':
     my_list = json.load(open("tests/volumes.json", encoding='utf-8-sig'))
-    data = {"volumes": my_list}
+    data = {"ВедомостьВидовИОбъемовРабот": my_list}
     doc = Document()
     generate_table(data, doc)
+    doc.save("temp/volumes.docx")  
