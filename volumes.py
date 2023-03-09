@@ -29,14 +29,19 @@ def generate_table(data, doc):
     for item in data["ВедомостьВидовИОбъемовРабот"]:
         # subdoc = doc.new_subdoc()
         row = table.add_row()
-        run = row.cells[0].paragraphs[0].add_run(item["Номер"])
+        par = row.cells[0].paragraphs[0]
+        run = par.add_run(item["Номер"])
+        par.alignment = WD_ALIGN_PARAGRAPH.CENTER
         if item["Наименование"] == "":
             run.bold = True
             row.cells[0].merge(row.cells[3])
         else:
             row.cells[1].paragraphs[0].add_run(item["Наименование"])
+            row.cells[1].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
             row.cells[2].paragraphs[0].add_run(item["ЕдИзм"])
+            row.cells[2].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
             row.cells[3].paragraphs[0].add_run(item["Количество"])
+            row.cells[3].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
     return doc
 
 if __name__ == '__main__':
