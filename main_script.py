@@ -16,6 +16,7 @@ from app4_subdoc import app4_subdoc
 from app5_subdoc import app5_subdoc
 from questions import questions
 from question import question
+from volumes import volumes
 
 # Инициализация входных параметров.
 def createParser():
@@ -48,7 +49,7 @@ if __name__ == '__main__':
             # data[f'Вопрос{counter}'] = question(doc, data, output_file, question_row_data)
             data["Вопросы"].append(question(doc, data, output_file, question_row_data))
 
-    
+    data["ВедомостьВидовИОбъемовРабот"] =  volumes(data, doc)
     data["ПриложениеА"] = app1_subdoc(data, doc, arguments.otputfile)
     data["АктПрисутствияЗаинтересованныхСторон"] = app2_subdoc(data, doc)
     data["ПриложениеВ"] = app3_subdoc(data, doc)
