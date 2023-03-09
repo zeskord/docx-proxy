@@ -22,9 +22,13 @@ def generate_table(data, doc):
     row_header = table.add_row()
 
     row_header.cells[0].paragraphs[0].add_run("№ п/п")
+    row_header.cells[0].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
     row_header.cells[1].paragraphs[0].add_run("Наименование")
+    row_header.cells[1].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
     row_header.cells[2].paragraphs[0].add_run("Ед.изм.")
+    row_header.cells[2].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
     row_header.cells[3].paragraphs[0].add_run("Кол.")
+    row_header.cells[3].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     for item in data["ВедомостьВидовИОбъемовРабот"]:
         # subdoc = doc.new_subdoc()
