@@ -14,10 +14,15 @@ def generate_table(data, doc):
 
     table = doc.add_table(rows=0, cols=4)
     table.style = "Table Grid"
-    table.columns[0].width = Mm(15)
-    table.columns[1].width = Mm(110)
-    table.columns[2].width = Mm(20)
-    table.columns[3].width = Mm(20)
+    table.add_column(Mm(15))
+    table.add_column(Mm(110))
+    table.add_column(Mm(20))
+    table.add_column(Mm(20))
+
+    # table.columns[0].width = Mm(15)
+    # table.columns[1].width = Mm(110)
+    # table.columns[2].width = Mm(20)
+    # table.columns[3].width = Mm(20)
 
     row_header = table.add_row()
 
