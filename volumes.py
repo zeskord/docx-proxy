@@ -53,7 +53,7 @@ def generate_table(data, doc):
 
     for start, end in table_merges.items():
         start_row = int(start)
-        table.rows[start_row].cells[3].merge(table.rows[end].cells[4])
+        table.rows[start_row].cells[2].merge(table.rows[end].cells[3])
 
     return doc
 
