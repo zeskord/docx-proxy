@@ -54,7 +54,10 @@ def generate_table(data, doc):
     for start, end in table_merges.items():
         start_row = int(start)
         start_cell = table.rows[start_row - 1].cells[2]
-        end_cell = table.rows[end - 1].cells[3]
+        try:
+            end_cell = table.rows[end - 1].cells[3]
+        except:
+            print(end)
         start_cell.merge(end_cell)
 
     return doc
