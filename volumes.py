@@ -10,6 +10,11 @@ def volumes(data, doc):
     sd = doc.new_subdoc()
     return generate_table(data, sd)
 
+def delete_paragraph(paragraph):
+    p = paragraph._element
+    p.getparent().remove(p)
+    p._p = p._element = None
+
 def generate_table(data, doc):
 
     table = doc.add_table(rows=0, cols=0)
@@ -59,15 +64,16 @@ def generate_table(data, doc):
         i = len(start_cell.paragraphs)
         while i > 0:
             i -= 1
+            par = start_cell.paragraphs[i]
             if par.text == "":
-                start_cell.paragraphs.pop(i)
+                delete_paragraph(start_cell.paragraphs[i])
 
 
     return doc
 
 if __name__ == '__main__':
     my_list = json.load(open("tests/volumes.json", encoding='utf-8-sig'))
-    temp = {"Данные": my_list, "Объединения34": {"4": 5}}
+    temp = {"Данные": my_list, "Объединения34": {"7": 8}}
     data = {"ВедомостьВидовИОбъемовРабот": temp}
     doc = Document()
     generate_table(data, doc)
