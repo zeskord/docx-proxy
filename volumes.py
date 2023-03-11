@@ -55,8 +55,13 @@ def generate_table(data, doc):
         start_row = int(start)
         start_cell = table.rows[start_row - 2].cells[2]
         end_cell = table.rows[end - 2].cells[3]
-        print(end)
         start_cell.merge(end_cell)
+        i = start_cell.paragraphs.count()
+        while i > 0:
+            i -= 1
+            if par.text == "":
+                start_cell.paragraphs.pop(i)
+
 
     return doc
 
