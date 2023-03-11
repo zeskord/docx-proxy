@@ -54,17 +54,16 @@ def generate_table(data, doc):
     for start, end in table_merges.items():
         start_row = int(start)
         start_cell = table.rows[start_row - 1].cells[2]
-        try:
-            end_cell = table.rows[end - 1].cells[3]
-        except:
-            print(end)
+        end_cell = table.rows[end - 1].cells[3]
+        print(end)
         start_cell.merge(end_cell)
 
     return doc
 
 if __name__ == '__main__':
     my_list = json.load(open("tests/volumes.json", encoding='utf-8-sig'))
-    data = {"ВедомостьВидовИОбъемовРабот": my_list}
+    temp = {"Данные": my_list, "Объединения34": {"4": 5}}
+    data = {"ВедомостьВидовИОбъемовРабот": temp}
     doc = Document()
     generate_table(data, doc)
     doc.save("temp/volumes.docx")  
