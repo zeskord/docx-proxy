@@ -52,7 +52,8 @@ def generate_table(data, doc):
             row.cells[3].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     for start, end in table_merges.items():
-        table.rows[start].cells[3].merge(table.rows[end].cells[4])
+        start_row = int(start)
+        table.rows[start_row].cells[3].merge(table.rows[end].cells[4])
 
     return doc
 
