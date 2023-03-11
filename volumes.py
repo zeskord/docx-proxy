@@ -56,7 +56,7 @@ def generate_table(data, doc):
         start_cell = table.rows[start_row - 2].cells[2]
         end_cell = table.rows[end - 2].cells[3]
         start_cell.merge(end_cell)
-        i = start_cell.paragraphs.count()
+        i = len(start_cell.paragraphs)
         while i > 0:
             i -= 1
             if par.text == "":
