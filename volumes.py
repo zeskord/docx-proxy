@@ -19,11 +19,6 @@ def generate_table(data, doc):
     table.add_column(Mm(20))
     table.add_column(Mm(20))
 
-    # table.columns[0].width = Mm(15)
-    # table.columns[1].width = Mm(110)
-    # table.columns[2].width = Mm(20)
-    # table.columns[3].width = Mm(20)
-
     row_header = table.add_row()
 
     row_header.cells[0].paragraphs[0].add_run("№ п/п")
@@ -35,7 +30,11 @@ def generate_table(data, doc):
     row_header.cells[3].paragraphs[0].add_run("Кол.")
     row_header.cells[3].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
 
-    for item in data["ВедомостьВидовИОбъемовРабот"]:
+    # Данные таблицы.
+    table_data = data["ВедомостьВидовИОбъемовРабот"]["Данные"]
+    # Объединения в 3 и 4 колонках.
+    table_merges = data["ВедомостьВидовИОбъемовРабот"]["Объединения34"]
+    for item in table_data:
         # subdoc = doc.new_subdoc()
         row = table.add_row()
         par = row.cells[0].paragraphs[0]
@@ -51,6 +50,10 @@ def generate_table(data, doc):
             row.cells[2].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
             row.cells[3].paragraphs[0].add_run(item["Количество"])
             row.cells[3].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+    for start, end in table_merges.items():
+        table.rows[start].cells[3].merge(table.rows[end].cells[4])
+
     return doc
 
 if __name__ == '__main__':
