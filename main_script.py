@@ -10,7 +10,7 @@ from docx.enum.style import WD_STYLE_TYPE
 from docx.oxml import OxmlElement, ns
 from docx.shared import Cm, Pt
 from app1_subdoc import app1_subdoc
-from app2_subdoc import app2_subdoc
+from app2_subdoc import app2_subdoc1, app2_subdoc2
 from app3_subdoc import app3_subdoc
 from app4_subdoc import app4_subdoc
 from app5_subdoc import app5_subdoc
@@ -51,7 +51,8 @@ if __name__ == '__main__':
 
     data["ВедомостьВидовИОбъемовРабот"] =  volumes(data, doc)
     data["ПриложениеА"] = app1_subdoc(data, doc, arguments.otputfile)
-    data["АктПрисутствияЗаинтересованныхСторон"] = app2_subdoc(data, doc)
+    data["АктПрисутствияЗаинтересованныхСторон"] = app2_subdoc1(data, doc)
+    data["ДоверенностьПредставителяЗастройщика"] = app2_subdoc2(data, doc)
     data["ПриложениеВ"] = app3_subdoc(data, doc)
 
     data["ПриложениеГ"] = app4_subdoc(data, doc, arguments.otputfile)
