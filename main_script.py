@@ -10,10 +10,9 @@ from docx.enum.style import WD_STYLE_TYPE
 from docx.oxml import OxmlElement, ns
 from docx.shared import Cm, Pt
 from app1_subdoc import app1_subdoc
-from app2_subdoc import app2_subdoc1, app2_subdoc2
+from app2_subdoc import picture_subdoc
 from app3_subdoc import app3_subdoc
 from app4_subdoc import app4_subdoc
-from app5_subdoc import app5_subdoc
 from questions import questions
 from question import question
 from volumes import volumes
@@ -26,6 +25,36 @@ def createParser():
     parser.add_argument('otputfile', type=str)
     return parser
 
+def createDoc(inputfile, jsondata, otputfile):
+    # Чтение документа-исходника.
+    doc = DocxTemplate(inputfile)
+
+    # Чтение входящих параметров.
+    data = json.load(open(jsondata, encoding='utf-8-sig'))
+
+    if data["ИмяШаблона_ВопросыСудьи"] != "":
+        output_file = f'{otputfile}_вопросы'
+        data["Поддокумент_ВопросыСудьи"] = questions(doc, data, output_file)
+
+        data["Вопросы"] = []
+        for question_row_data in data["ВопросыСудьи"]:
+            output_file = f'{otputfile}_вопрос{len(data["Вопросы"])}'
+            # data[f'Вопрос{counter}'] = question(doc, data, output_file, question_row_data)
+            data["Вопросы"].append(question(doc, data, output_file, question_row_data))
+
+    data["ВедомостьВидовИОбъемовРабот"] =  volumes(data, doc)
+    data["ПриложениеА"] = app1_subdoc(data, doc, otputfile)
+    data["АктПрисутствияЗаинтересованныхСторон"] = picture_subdoc(doc, data["АктПрисутствияЗаинтересованныхСторон"], 160, 200)
+    data["ДоверенностьПредставителяЗастройщика"] = picture_subdoc(doc, data["ДоверенностьПредставителяЗастройщика"], 160, 200)
+    data["ПриложениеВ"] = app3_subdoc(data, doc)
+
+    data["ПриложениеГ"] = app4_subdoc(data, doc, otputfile)
+    data["ОбмерныйПлан"] = picture_subdoc(doc, data["ОбмерныйПлан"], 160, 200)
+    doc.render(data)
+    
+    # Сохраним документ.
+    doc.save(otputfile)
+
 # Основное действие.
 if __name__ == '__main__':
     
@@ -33,32 +62,6 @@ if __name__ == '__main__':
     parser = createParser()
     arguments = parser.parse_args(sys.argv[1:])
 
-    # Чтение документа-исходника.
-    doc = DocxTemplate(arguments.inputfile)
-
-    # Чтение входящих параметров.
-    data = json.load(open(arguments.data, encoding='utf-8-sig'))
-
-    if data["ИмяШаблона_ВопросыСудьи"] != "":
-        output_file = f'{arguments.otputfile}_вопросы'
-        data["Поддокумент_ВопросыСудьи"] = questions(doc, data, output_file)
-
-        data["Вопросы"] = []
-        for question_row_data in data["ВопросыСудьи"]:
-            output_file = f'{arguments.otputfile}_вопрос{len(data["Вопросы"])}'
-            # data[f'Вопрос{counter}'] = question(doc, data, output_file, question_row_data)
-            data["Вопросы"].append(question(doc, data, output_file, question_row_data))
-
-    data["ВедомостьВидовИОбъемовРабот"] =  volumes(data, doc)
-    data["ПриложениеА"] = app1_subdoc(data, doc, arguments.otputfile)
-    data["АктПрисутствияЗаинтересованныхСторон"] = app2_subdoc1(data, doc)
-    data["ДоверенностьПредставителяЗастройщика"] = app2_subdoc2(data, doc)
-    data["ПриложениеВ"] = app3_subdoc(data, doc)
-
-    data["ПриложениеГ"] = app4_subdoc(data, doc, arguments.otputfile)
-    data["ОбмерныйПлан"] = app5_subdoc(data, doc)
-    doc.render(data)
-    
-    # Сохраним документ.
-    doc.save(arguments.otputfile)
+    # Главная процедура.
+    createDoc(arguments.inputfile, arguments.data, arguments.otputfile)
 

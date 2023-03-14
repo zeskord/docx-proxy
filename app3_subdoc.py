@@ -3,7 +3,27 @@ import base64
 from docx.shared import Inches, Mm, Pt
 from docx.enum.table import WD_ALIGN_VERTICAL
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+import io
 
+def picture(run, pic_data):
+    max_width = 75
+    max_height = 100
+    file_base64 = pic_data["ДанныеФайла"]
+    image = base64.b64decode(file_base64)
+    stream = io.BytesIO(image)
+    # par = sd.add_paragraph()
+    # Небольшая возня с размерами.
+    width = pic_data["Ширина"]
+    height = pic_data["Высота"]
+    k = width / height # Отношение сторон картинки.
+    k2 = max_width / max_height
+    if k < k2:
+        # Это широкая картинка, ее нужно привести к максимальной ширине
+        run.add_picture(stream, width=None, height=Mm(max_height))
+    else:
+        run.add_picture(stream, width=Mm(max_width), height=None)
+    
+    # par.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
 def app3_subdoc(data, doc):
     sd = doc.new_subdoc()
@@ -27,13 +47,6 @@ def app3_subdoc(data, doc):
             else:
                 row_pictures = table.rows[len(table.rows) - 2]
                 row_descriptions = table.rows[len(table.rows) - 1]
-            file_guid = file_entry["ИмяФайла"]
-            file_extension = file_entry["Расширение"]
-            file_base64 = file_entry["ДанныеФайла"]
-            image = base64.b64decode(file_base64)
-            filename = f'temp/{file_guid}.{file_extension}'
-            with open(filename, "wb") as file:
-                file.write(image)
 
             # Добавляем картинку в файл.
             current_col_id = 1 if counter % 2 == 0 else 0
@@ -49,7 +62,8 @@ def app3_subdoc(data, doc):
             picture_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
             picture_paragraph.paragraph_format.space_after = Pt(0)
             run = picture_paragraph.add_run()
-            picture = run.add_picture(filename, width=Mm(75), height=None)
+            picture(run, file_entry["ДанныеКартинки"])
+            # picture = run.add_picture(stream, width=Mm(75), height=None)
 
             cell_descriptions = row_descriptions.cells[current_col_id]
             if is_last_pic and current_col_id == 0:

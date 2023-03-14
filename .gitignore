@@ -1,5 +1,7 @@
 /temp/*
 /templates/*
+/tests/*
+test.py
 
 # Logs
 logs
