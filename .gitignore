@@ -2,6 +2,12 @@
 /templates/*
 /tests/*
 test.py
+*.docx
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
 # Logs
 logs
