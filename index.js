@@ -57,6 +57,49 @@ app.post('/create_task', function (req, res, next) {
     // 
 })
 
+app.post('/create_task2', function (req, res, next) {
+
+    upload(req, res, function (err) {
+        if (err instanceof multer.MulterError) {
+            console.log("Случилась ошибка Multer при загрузке.")
+            console.error(err)
+            return
+        } else {
+            console.log("При загрузке произошла неизвестная ошибка.")
+            console.error(err)
+        }
+
+        // Если мы здесь без ошибок, то файл загружен.
+        console.log(req.files)
+        jsonFile = req.files[0].filename
+        resultFile = `${jsonFile}.docx`
+
+        const command = `python3 "main_script.py" "templates/Шаблон экспертизы.docx" "temp/${jsonFile}" "temp/${resultFile}"`
+        console.log(command)
+        exec(command, (err, stdout, stderr) => {
+            if (err) {
+                console.error(err)
+                console.error(stderr)
+                return
+            }
+            console.log(stdout)
+            const file_buffer = fs.readFileSync(`temp/${resultFile}`);
+            const contents_in_base64 = file_buffer.toString('base64');
+            res.json(
+                {
+                    status: "OK",
+                    filedata: contents_in_base64
+                }
+            )
+        })
+
+    })
+
+
+    // ans = { status: "OK" }
+    // 
+})
+
 app.post('/main', (req, res) => {
     data = {
         params: req.body.params,
