@@ -53,7 +53,7 @@ def createDoc(inputfile, jsondata, otputfile):
     data["ПриложениеГ"] = app4_subdoc(data, doc, jsondata)
     data["ОбмерныйПлан"] = picture_subdoc(doc, data["ОбмерныйПлан"], 160, 200)
     doc.render(data)
-    
+    a=1/0
     # Сохраним документ.
     doc.save(otputfile)
 
