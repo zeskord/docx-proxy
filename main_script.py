@@ -33,17 +33,6 @@ def createDoc(inputfile, jsondata, otputfile):
     # Чтение входящих параметров.
     data = json.load(open(jsondata, encoding='utf-8-sig'))
 
-
-    # if data["ИмяШаблона_ВопросыСудьи"] != "":
-    #     output_file = f'{jsondata}_вопросы'
-    #     data["Поддокумент_ВопросыСудьи"] = questions(doc, data, output_file)
-
-    #     data["Вопросы"] = []
-    #     for question_row_data in data["ВопросыСудьи"]:
-    #         output_file = f'{jsondata}_вопрос{len(data["Вопросы"])}'
-    #         # data[f'Вопрос{counter}'] = question(doc, data, output_file, question_row_data)
-    #         data["Вопросы"].append(question(doc, data, output_file, question_row_data))
-
     НомераВопросов = ["1", "2", "3", "4"]
     for НомерВопроса in НомераВопросов:
         if data[f'Вопрос{НомерВопроса}_Заполнен']:

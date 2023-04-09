@@ -5,8 +5,7 @@ const http = require('http')
 const app = express()
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' }).any()
-// const { spawn } = require('child_process');
-const { exec, spawn } = require('child_process');
+const { exec, spawn } = require('child_process')
 
 app.set('json spaces', 2)
 app.use(express.json())
@@ -37,11 +36,14 @@ app.post('/create_task', function (req, res, next) {
             if (err) {
                 console.error(err)
                 console.error(stderr)
+                res.json(
+                    err
+                )
                 return
             }
             console.log(stdout)
-            const file_buffer = fs.readFileSync(`temp/${resultFile}`);
-            const contents_in_base64 = file_buffer.toString('base64');
+            const file_buffer = fs.readFileSync(`temp/${resultFile}`)
+            const contents_in_base64 = file_buffer.toString('base64')
             res.json(
                 {
                     status: "OK",
@@ -49,12 +51,7 @@ app.post('/create_task', function (req, res, next) {
                 }
             )
         })
-
     })
-
-
-    // ans = { status: "OK" }
-    // 
 })
 
 app.post('/main', (req, res) => {
@@ -62,7 +59,6 @@ app.post('/main', (req, res) => {
         params: req.body.params,
         taskId: req.body.taskId
     }
-    // const buff = Buffer.from(base64, 'base64');
     jsonFilePath = path.join('./temp/', `${taskId}.json`)
     fs.writeFileSync(jsonFilePath, params)
     ans = { status: "OK" }
@@ -79,11 +75,11 @@ function deleteOldFiles() {
             if (timelong > 3600000) {
                 fs.unlink(filepath, (err) => {
                     if (err) throw err;
-                    console.log(`${filepath} was deleted`);
+                    console.log(`${filepath} was deleted`)
                 })
             }
-        });
-    });
+        })
+    })
 }
 
 
