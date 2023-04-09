@@ -36,8 +36,11 @@ app.post('/create_task', function (req, res, next) {
             if (err) {
                 console.error(err)
                 console.error(stderr)
-                res.json(
-                    err
+                res.send(
+                    {
+                        stdout: stdout,
+                        stderr: stderr
+                    }
                 )
                 return
             }
