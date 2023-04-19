@@ -28,10 +28,22 @@ app.post('/create_task', function (req, res, next) {
         // Если мы здесь без ошибок, то файл загружен.
         console.log(req.files)
         console.log(req.body)
-        jsonFile = req.files[0].filename
+        var temlateFileItem
+        var dataFileItem
+        for (let i=0; i<req.files.length; i++) {
+            if (req.files[i].fieldname === "template") {
+                temlateFileItem = req.files[i]
+            } else if (req.files[i].fieldname === "data") {
+                dataFileItem = req.files[i]
+            }
+        }
+        jsonFile = dataFileItem.filename
+        templateFile = temlateFileItem.filename
         resultFile = `${jsonFile}.docx`
 
-        const command = `python3 "main_script.py" "templates/Шаблон экспертизы.docx" "temp/${jsonFile}" "temp/${resultFile}"`
+        template = req.body.template // Имя шаблона docx
+
+        const command = `python3 "main_script.py" "temp/${templateFile}" "temp/${jsonFile}" "temp/${resultFile}"`
         console.log(command)
         exec(command, (err, stdout, stderr) => {
             if (err) {
