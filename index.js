@@ -27,6 +27,7 @@ app.post('/create_task', function (req, res, next) {
 
         // Если мы здесь без ошибок, то файл загружен.
         console.log(req.files)
+        console.log(req.body)
         jsonFile = req.files[0].filename
         resultFile = `${jsonFile}.docx`
 
