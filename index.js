@@ -27,7 +27,6 @@ app.post('/create_task', function (req, res, next) {
 
         // Если мы здесь без ошибок, то файл загружен.
         console.log(req.files)
-        console.log(req.body)
         var temlateFileItem
         var dataFileItem
         for (let i=0; i<req.files.length; i++) {
