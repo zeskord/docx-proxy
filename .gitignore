@@ -1,8 +1,6 @@
 /temp/*
-/templates/*
 /tests/*
 test.py
-*.docx
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
