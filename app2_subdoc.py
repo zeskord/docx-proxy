@@ -7,13 +7,13 @@ import io
 
 def picture_subdoc(doc, file_entry, max_width, max_height):
     sd = doc.new_subdoc()
-    file_base64 = file_entry["ДанныеФайла"]
-    image = base64.b64decode(file_base64)
-    stream = io.BytesIO(image)
     par = sd.add_paragraph()
     if file_entry["ИспользоватьПлейсхолдер"]:
         pass
     else:
+        file_base64 = file_entry["ДанныеФайла"]
+        image = base64.b64decode(file_base64)
+        stream = io.BytesIO(image)
         # Небольшая возня с размерами.
         width = file_entry["Ширина"]
         height = file_entry["Высота"]
