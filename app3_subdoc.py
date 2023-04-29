@@ -62,7 +62,8 @@ def app3_subdoc(data, doc):
             picture_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
             picture_paragraph.paragraph_format.space_after = Pt(0)
             run = picture_paragraph.add_run()
-            picture(run, file_entry["ДанныеКартинки"])
+            if file_entry["ДанныеКартинки"]["ИспользоватьПлейсхолдер"]:
+                picture(run, file_entry["ДанныеКартинки"])
             # picture = run.add_picture(stream, width=Mm(75), height=None)
 
             cell_descriptions = row_descriptions.cells[current_col_id]
