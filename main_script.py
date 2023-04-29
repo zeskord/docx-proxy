@@ -13,8 +13,6 @@ from app1_subdoc import app1_subdoc
 from app2_subdoc import picture_subdoc
 from app3_subdoc import app3_subdoc
 from app4_subdoc import app4_subdoc
-from questions import questions
-from question import question
 from volumes import volumes
 from universal import universal_template
 
