@@ -1,6 +1,6 @@
 # Возвращает поддокумент приложения В.
 import base64
-from docx.shared import Inches, Mm, Pt
+from docx.shared import Mm, Pt
 from docx.enum.table import WD_ALIGN_VERTICAL
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import io
@@ -11,7 +11,6 @@ def picture(run, pic_data):
     file_base64 = pic_data["ДанныеФайла"]
     image = base64.b64decode(file_base64)
     stream = io.BytesIO(image)
-    # par = sd.add_paragraph()
     # Небольшая возня с размерами.
     width = pic_data["Ширина"]
     height = pic_data["Высота"]
@@ -23,8 +22,6 @@ def picture(run, pic_data):
     else:
         run.add_picture(stream, width=Mm(max_width), height=None)
     
-    # par.alignment = WD_ALIGN_PARAGRAPH.CENTER
-
 def app3_subdoc(data, doc):
     sd = doc.new_subdoc()
     
@@ -54,9 +51,6 @@ def app3_subdoc(data, doc):
             # Если это последняя картинка и она нечетная, то нужно объединить последние ячейки.
             if is_last_pic and current_col_id == 0:
                 cell_pictures.merge(row_pictures.cells[current_col_id + 1])
-                # print(f'is_last_pic row_pictures: {is_last_pic}')
-                # a, b = row_pictures.cells[:2]
-                # a.merge(b)
             cell_pictures.vertical_alignment = WD_ALIGN_VERTICAL.BOTTOM
             picture_paragraph = cell_pictures.paragraphs[0]
             picture_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -64,13 +58,9 @@ def app3_subdoc(data, doc):
             run = picture_paragraph.add_run()
             if file_entry["ДанныеКартинки"]["ИспользоватьПлейсхолдер"] == False:
                 picture(run, file_entry["ДанныеКартинки"])
-            # picture = run.add_picture(stream, width=Mm(75), height=None)
 
             cell_descriptions = row_descriptions.cells[current_col_id]
             if is_last_pic and current_col_id == 0:
-                # print(f'is_last_pic row_descriptions: {is_last_pic}')
-                # a, b = row_descriptions.cells[:2]
-                # a.merge(b)
                 cell_descriptions.merge(row_descriptions.cells[current_col_id + 1])
             description = file_entry["Описание"]
             par_description = cell_descriptions.paragraphs[0]
@@ -80,4 +70,10 @@ def app3_subdoc(data, doc):
         
         par = sd.add_paragraph(f'Рисунок {picture_group_counter}: {picture_group["ОписаниеРисунка"]}')
         par.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        par.paragraph_format.space_after = Pt(6)
+        if "ПримечаниеРисунка" in picture_group and picture_group["ПримечаниеРисунка"] != "":
+            par = sd.add_paragraph(f'Примечание - {picture_group["ПримечаниеРисунка"]}')
+            par.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            par.paragraph_format.space_after = Pt(6)
+        
     return sd
