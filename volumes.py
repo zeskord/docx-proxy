@@ -1,10 +1,8 @@
 
 import json
-from docx.shared import Inches, Mm, Pt
-from docx.enum.table import WD_ALIGN_VERTICAL
+from docx.shared import Mm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx import Document
-from docxtpl import DocxTemplate
 
 def volumes(data, doc):
     sd = doc.new_subdoc()
