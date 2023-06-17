@@ -1,6 +1,7 @@
 from docxtpl import DocxTemplate
 from docx import Document
 import uuid
+import os
 
 def universal_template(doc, data, subtemplate_key):
     subdoc_template = Document()
@@ -11,4 +12,5 @@ def universal_template(doc, data, subtemplate_key):
     subdoc.render(data)
     subdoc.save(output_file)
     final = doc.new_subdoc(output_file)
+    os.remove(output_file)
     return final
